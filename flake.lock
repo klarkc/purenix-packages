@@ -697,6 +697,22 @@
         "type": "indirect"
       }
     },
+    "official-package-set-repo": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1686122754,
+        "narHash": "sha256-4IuxNBw9QBg9F1MK4BGWEib1c/DTUX5pqqg4cKX8QWY=",
+        "owner": "purescript",
+        "repo": "package-sets",
+        "rev": "7e4086822429423ca279ace9ce56b3955575feb4",
+        "type": "github"
+      },
+      "original": {
+        "owner": "purescript",
+        "repo": "package-sets",
+        "type": "github"
+      }
+    },
     "package-set-repo": {
       "inputs": {
         "flake-utils": "flake-utils",
@@ -995,6 +1011,7 @@
           "purs-nix",
           "nixpkgs"
         ],
+        "official-package-set-repo": "official-package-set-repo",
         "package-set-repo": "package-set-repo",
         "purs-nix": "purs-nix",
         "utils": "utils_4"
