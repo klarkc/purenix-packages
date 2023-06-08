@@ -20,7 +20,7 @@
     { inherit __functor; } // utils.apply-systems
       {
         inherit inputs;
-        # TODO remove systems limited by the test
+        # TODO remove systems limited by purs-nix
         systems = [ "x86_64-linux" ];
       }
       ({ system, pkgs, ... }@ctx:
