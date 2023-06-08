@@ -12,7 +12,7 @@
       official-package-set-repo.flake = false;
     };
 
-  outputs = { self, nixpkgs, utils, package-set-repo, ... }@inputs:
+  outputs = { self, nixpkgs, utils, ... }@inputs:
     let
       __functor = _: { system }:
         import ./nix/purs-nix inputs nixpkgs.legacyPackages.${system};
@@ -23,12 +23,12 @@
         # TODO remove systems limited by the test
         systems = [ "x86_64-linux" ];
       }
-      ({ system, ... }@ctx:
+      ({ system, pkgs, ... }@ctx:
         let
           generator = import ./nix/package-set/generate.nix
-            package-set-repo
+            inputs.package-set-repo
             inputs.official-package-set-repo
-            ctx.pkgs;
+            pkgs;
         in
         {
           packages.package-set = generator;
