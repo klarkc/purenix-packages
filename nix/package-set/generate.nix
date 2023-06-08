@@ -31,8 +31,9 @@ let
           if isOfficial
           then v
           else make-info-version package.version;
+        isRef = isOfficial && l.strings.versionAtLeast version "0.0.1";
         ref =
-          if isOfficial
+          if isRef
           then "refs/tags/v${version}"
           else v.ref;
         url =
@@ -41,8 +42,8 @@ let
           else "${v.git}?path=${v.subdir}";
         repo = b.fetchGit {
           inherit url;
-          ${if isOfficial then "ref" else "rev"} = ref;
-          ${if isOfficial then null else "allRefs"} = true;
+          ${if isRef then "ref" else "rev"} = ref;
+          ${if isRef then null else "allRefs"} = true;
         };
         assertVersion = assert (b.trace "${n} ${v} == ${version}?" v) == version; b.trace "true";
         cur = ''
@@ -52,7 +53,7 @@ let
                   rev = "${repo.rev}";
                 };
               info =
-                { version = "${version}";
+                { ${if isRef then "version = \"${version}\";" else ""}
                   dependencies =
                     [ ${b.foldl'
                           (acc: d: acc + escape-reserved-word true d + " ")

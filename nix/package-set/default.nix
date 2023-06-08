@@ -30,7 +30,7 @@ arrays =
         rev = "856f243d0aa214ee0a0f90e4be6045b6fee95bca";
       };
     info =
-      { version = "0.0.0";
+      { 
         dependencies =
           [ bifunctors control foldable-traversable maybe nonempty partial prelude st tuples unfoldable unsafe-coerce 
           ];
@@ -54,7 +54,7 @@ ask =
         rev = "856f243d0aa214ee0a0f90e4be6045b6fee95bca";
       };
     info =
-      { version = "0.0.0";
+      { 
         dependencies =
           [ prelude 
           ];
@@ -78,7 +78,7 @@ bifunctors =
         rev = "856f243d0aa214ee0a0f90e4be6045b6fee95bca";
       };
     info =
-      { version = "0.0.0";
+      { 
         dependencies =
           [ const either newtype prelude tuples 
           ];
@@ -114,7 +114,7 @@ const =
         rev = "856f243d0aa214ee0a0f90e4be6045b6fee95bca";
       };
     info =
-      { version = "0.0.0";
+      { 
         dependencies =
           [ invariant newtype prelude 
           ];
@@ -126,7 +126,7 @@ contravariant =
         rev = "856f243d0aa214ee0a0f90e4be6045b6fee95bca";
       };
     info =
-      { version = "0.0.0";
+      { 
         dependencies =
           [ const either newtype prelude tuples 
           ];
@@ -138,7 +138,7 @@ control =
         rev = "856f243d0aa214ee0a0f90e4be6045b6fee95bca";
       };
     info =
-      { version = "0.0.0";
+      { 
         dependencies =
           [ newtype prelude 
           ];
@@ -174,7 +174,7 @@ distributive =
         rev = "856f243d0aa214ee0a0f90e4be6045b6fee95bca";
       };
     info =
-      { version = "0.0.0";
+      { 
         dependencies =
           [ identity newtype prelude tuples type-equality 
           ];
@@ -186,7 +186,7 @@ effect =
         rev = "856f243d0aa214ee0a0f90e4be6045b6fee95bca";
       };
     info =
-      { version = "0.0.0";
+      { 
         dependencies =
           [ prelude 
           ];
@@ -198,7 +198,7 @@ either =
         rev = "856f243d0aa214ee0a0f90e4be6045b6fee95bca";
       };
     info =
-      { version = "0.0.0";
+      { 
         dependencies =
           [ control invariant maybe prelude 
           ];
@@ -210,7 +210,7 @@ enums =
         rev = "856f243d0aa214ee0a0f90e4be6045b6fee95bca";
       };
     info =
-      { version = "0.0.0";
+      { 
         dependencies =
           [ control either maybe newtype nonempty partial prelude tuples unfoldable 
           ];
@@ -234,7 +234,7 @@ exists =
         rev = "856f243d0aa214ee0a0f90e4be6045b6fee95bca";
       };
     info =
-      { version = "0.0.0";
+      { 
         dependencies =
           [ unsafe-coerce 
           ];
@@ -258,7 +258,7 @@ foldable-traversable =
         rev = "856f243d0aa214ee0a0f90e4be6045b6fee95bca";
       };
     info =
-      { version = "0.0.0";
+      { 
         dependencies =
           [ bifunctors const control either functors identity maybe newtype orders prelude tuples 
           ];
@@ -270,7 +270,7 @@ foreign =
         rev = "856f243d0aa214ee0a0f90e4be6045b6fee95bca";
       };
     info =
-      { version = "0.0.0";
+      { 
         dependencies =
           [ prelude 
           ];
@@ -318,7 +318,7 @@ functors =
         rev = "856f243d0aa214ee0a0f90e4be6045b6fee95bca";
       };
     info =
-      { version = "0.0.0";
+      { 
         dependencies =
           [ bifunctors const contravariant control distributive either invariant maybe newtype prelude profunctor tuples unsafe-coerce 
           ];
@@ -330,7 +330,7 @@ identity =
         rev = "856f243d0aa214ee0a0f90e4be6045b6fee95bca";
       };
     info =
-      { version = "0.0.0";
+      { 
         dependencies =
           [ control invariant newtype prelude 
           ];
@@ -378,7 +378,7 @@ invariant =
         rev = "856f243d0aa214ee0a0f90e4be6045b6fee95bca";
       };
     info =
-      { version = "0.0.0";
+      { 
         dependencies =
           [ control prelude 
           ];
@@ -486,7 +486,7 @@ maybe =
         rev = "856f243d0aa214ee0a0f90e4be6045b6fee95bca";
       };
     info =
-      { version = "0.0.0";
+      { 
         dependencies =
           [ control invariant newtype prelude 
           ];
@@ -522,7 +522,7 @@ newtype =
         rev = "856f243d0aa214ee0a0f90e4be6045b6fee95bca";
       };
     info =
-      { version = "0.0.0";
+      { 
         dependencies =
           [ prelude safe-coerce 
           ];
@@ -570,7 +570,7 @@ nonempty =
         rev = "856f243d0aa214ee0a0f90e4be6045b6fee95bca";
       };
     info =
-      { version = "0.0.0";
+      { 
         dependencies =
           [ control foldable-traversable maybe prelude tuples unfoldable 
           ];
@@ -606,7 +606,7 @@ orders =
         rev = "856f243d0aa214ee0a0f90e4be6045b6fee95bca";
       };
     info =
-      { version = "0.0.0";
+      { 
         dependencies =
           [ newtype prelude 
           ];
@@ -618,7 +618,7 @@ partial =
         rev = "856f243d0aa214ee0a0f90e4be6045b6fee95bca";
       };
     info =
-      { version = "0.0.0";
+      { 
         dependencies =
           [ 
           ];
@@ -666,7 +666,7 @@ prelude =
         rev = "856f243d0aa214ee0a0f90e4be6045b6fee95bca";
       };
     info =
-      { version = "0.0.0";
+      { 
         dependencies =
           [ 
           ];
@@ -678,7 +678,7 @@ profunctor =
         rev = "856f243d0aa214ee0a0f90e4be6045b6fee95bca";
       };
     info =
-      { version = "0.0.0";
+      { 
         dependencies =
           [ control distributive either exists invariant newtype prelude tuples 
           ];
@@ -774,7 +774,7 @@ safe-coerce =
         rev = "856f243d0aa214ee0a0f90e4be6045b6fee95bca";
       };
     info =
-      { version = "0.0.0";
+      { 
         dependencies =
           [ unsafe-coerce 
           ];
@@ -786,7 +786,7 @@ st =
         rev = "856f243d0aa214ee0a0f90e4be6045b6fee95bca";
       };
     info =
-      { version = "0.0.0";
+      { 
         dependencies =
           [ prelude 
           ];
@@ -822,7 +822,7 @@ tuples =
         rev = "856f243d0aa214ee0a0f90e4be6045b6fee95bca";
       };
     info =
-      { version = "0.0.0";
+      { 
         dependencies =
           [ control invariant prelude 
           ];
@@ -834,7 +834,7 @@ type-equality =
         rev = "856f243d0aa214ee0a0f90e4be6045b6fee95bca";
       };
     info =
-      { version = "0.0.0";
+      { 
         dependencies =
           [ 
           ];
@@ -894,7 +894,7 @@ unfoldable =
         rev = "856f243d0aa214ee0a0f90e4be6045b6fee95bca";
       };
     info =
-      { version = "0.0.0";
+      { 
         dependencies =
           [ foldable-traversable maybe partial prelude tuples 
           ];
@@ -918,7 +918,7 @@ unsafe-coerce =
         rev = "856f243d0aa214ee0a0f90e4be6045b6fee95bca";
       };
     info =
-      { version = "0.0.0";
+      { 
         dependencies =
           [ 
           ];
