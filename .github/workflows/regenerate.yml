@@ -18,7 +18,8 @@ jobs:
       with:
         name: klarkc
         authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
-    - run: |
+    - name: regenerate nix/package-set
+      run: |
         set -e
         nix build .#package-set --show-trace --impure
         cp result nix/package-set/default.nix
@@ -26,12 +27,12 @@ jobs:
       id: git-check
       run: |
         if [[ -z "$(git status --porcelain)" ]]; then
-          echo "::set-output name=changes::false"
+          echo "changes=false" >> $GITHUB_ENV
         else
-          echo "::set-output name=changes::true"
+          echo "changes=true" >> $GITHUB_ENV
         fi
     - name: Commit changes
-      if: steps.git-check.outputs.changes == 'true'
+      if: env.changes == 'true'
       run: |
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
