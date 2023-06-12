@@ -700,11 +700,11 @@
     "official-package-set-repo": {
       "flake": false,
       "locked": {
-        "lastModified": 1686122754,
-        "narHash": "sha256-4IuxNBw9QBg9F1MK4BGWEib1c/DTUX5pqqg4cKX8QWY=",
+        "lastModified": 1686382059,
+        "narHash": "sha256-s94KOuLWAR72Bel3PffkkdKffrXAv5sdzBDu+SAfaCs=",
         "owner": "purescript",
         "repo": "package-sets",
-        "rev": "7e4086822429423ca279ace9ce56b3955575feb4",
+        "rev": "ed59df71f19626e47e0c0a655357d3973e4a5f92",
         "type": "github"
       },
       "original": {
