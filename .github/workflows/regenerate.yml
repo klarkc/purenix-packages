@@ -20,7 +20,7 @@ jobs:
         authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
     - run: |
         set -e
-        nix flake build .#package-set --show-trace --impure
+        nix build .#package-set --show-trace --impure
         cp result nix/package-set/default.nix
     - name: Check for changes
       id: git-check
