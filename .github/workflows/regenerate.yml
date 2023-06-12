@@ -5,7 +5,7 @@ on:
     branches:
       - 'update_flake_lock_action'
 jobs:
-  test-ctl-nix:
+  regenerate:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
