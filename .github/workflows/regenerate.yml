@@ -21,7 +21,7 @@ jobs:
     - name: regenerate nix/package-set
       run: |
         set -e
-        nix build .#package-set --show-trace --impure
+        nix build .#generator --show-trace --impure
         cp result nix/package-set/default.nix
     - name: Check for changes
       id: git-check

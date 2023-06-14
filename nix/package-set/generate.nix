@@ -60,7 +60,7 @@ let
             in
               { src = { ${if isOfficial
                           then "inherit git;"
-                          else "path = fetchGitSubdir git \"${v.subdir};\""
+                          else "path = fetchGitSubdir git \"${v.subdir}\";"
                          } };
                 info =
                   { ${if isRef then "version = \"${version}\";" else ""}
