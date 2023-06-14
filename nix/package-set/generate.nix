@@ -39,30 +39,40 @@ let
         url =
           if isOfficial
           then official-packages.${n}.repo
-          else "${v.git}?path=${v.subdir}";
+          else v.git;
         repo = b.fetchGit {
           inherit url;
           ${if isRef then "ref" else "rev"} = ref;
           ${if isRef then null else "allRefs"} = true;
         };
         assertVersion = assert (b.trace "${n} ${v} == ${version}?" v) == version; b.trace "true";
+        srcGit = ''
+          { repo = "{url}";
+            rev = "{repo.rev}";
+          }
+        '';
         cur = ''
           ${escape-reserved-word false n} =
-            { src.git =
-                { repo = "${url}";
-                  rev = "${repo.rev}";
-                };
-              info =
-                { ${if isRef then "version = \"${version}\";" else ""}
-                  dependencies =
-                    [ ${b.foldl'
-                          (acc: d: acc + escape-reserved-word true d + " ")
-                          ""
-                          package.dependencies
-                      }
-                    ];
-                };
-            };
+            let
+              git = { repo = "${url}";
+                      rev = "${repo.rev}";
+                    };
+            in
+              { src = { ${if isOfficial
+                          then "inherit git;"
+                          else "path = fetchGitSubdir git \"${v.subdir};\""
+                         } };
+                info =
+                  { ${if isRef then "version = \"${version}\";" else ""}
+                    dependencies =
+                      [ ${b.foldl'
+                            (acc: d: acc + escape-reserved-word true d + " ")
+                            ""
+                            package.dependencies
+                        }
+                      ];
+                  };
+              };
         '';
         evaluate = c:
           if isOfficial
@@ -75,6 +85,9 @@ let
 in
 p.writeText "" ''
   ps-pkgs:
+    let
+      fetchGitSubdir = opts: dir: (builtins.fetchGit opts) + "/" + dir;
+    in
     with ps-pkgs;
     { ${package-set-str} }
 ''
