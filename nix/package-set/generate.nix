@@ -5,11 +5,10 @@ let
   b = builtins;
   p = pkgs;
   l = p.lib;
+  u = (import ../utils.nix) p;
   make-info-version = l.strings.removePrefix "v";
   official-packages = l.importJSON (official-package-set-repo + /packages.json);
   # FIXME we should not assume package-set-repo@0.0.1
-  package-set = l.importJSON (package-set-repo + /package-sets/0.0.1.json);
-  package-set-entries = l.mapAttrsToList (n: v: { inherit n v; }) package-set.packages;
   escape-reserved-word = ps-pkgs: str:
     let
       reserved-words = [ "assert" ];
@@ -76,7 +75,7 @@ let
       in
       acc + evaluate cur)
     ""
-    package-set-entries;
+    (u.package-set-entries package-set-repo);
 in
 p.writeText "" ''
   ps-pkgs:
