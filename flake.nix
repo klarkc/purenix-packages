@@ -52,9 +52,8 @@
               ps = purs-nix.purs
                 {
                   srcs = [ ];
-                  dependencies = u.package-set-pkgs
-                    inputs.package-set-repo
-                    purs-nix.ps-pkgs;
+                  dependencies =
+                    (import ./nix/dependencies.nix) purs-nix.ps-pkgs;
                 };
               prefix = "output";
             in
