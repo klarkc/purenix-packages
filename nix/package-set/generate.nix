@@ -47,14 +47,13 @@ let
           ${if isRef then null else "allRefs"} = true;
         };
         assertVersion = assert (b.trace "${n} ${v} == ${version}?" v) == version; b.trace "true";
-        #else "src.path = fetchGitSubdir git \"${v.subdir}\""
         cur = ''
           ${escape-reserved-word false n} =
             { 
               ${optOff "src.git.repo = \"${url}\";"}
               ${optOff "src.git.rev = \"${repo.rev}\";"}
               ${optUnoff "src.path = fetchGitSubdir"}
-                ${optUnoff "{ url = \"${url}\"; rev = \"${repo.rev}\"; }"}
+                ${optUnoff "{ url = \"${url}\"; rev = \"${repo.rev}\"; allRefs = true; }"}
                 ${optUnoff "\"${v.subdir}\";"}
               info =
                 { ${if isRef then "version = \"${version}\";" else ""}

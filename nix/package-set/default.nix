@@ -36,7 +36,7 @@ arrays =
     
     
     src.path = fetchGitSubdir
-      { url = "https://github.com/purenix-org/purenix-base.git"; rev = "856f243d0aa214ee0a0f90e4be6045b6fee95bca"; }
+      { url = "https://github.com/purenix-org/purenix-base.git"; rev = "856f243d0aa214ee0a0f90e4be6045b6fee95bca"; allRefs = true; }
       "purescript-arrays";
     info =
       { 
@@ -64,7 +64,7 @@ ask =
     
     
     src.path = fetchGitSubdir
-      { url = "https://github.com/purenix-org/purenix-base.git"; rev = "856f243d0aa214ee0a0f90e4be6045b6fee95bca"; }
+      { url = "https://github.com/purenix-org/purenix-base.git"; rev = "856f243d0aa214ee0a0f90e4be6045b6fee95bca"; allRefs = true; }
       "purescript-assert";
     info =
       { 
@@ -92,7 +92,7 @@ bifunctors =
     
     
     src.path = fetchGitSubdir
-      { url = "https://github.com/purenix-org/purenix-base.git"; rev = "856f243d0aa214ee0a0f90e4be6045b6fee95bca"; }
+      { url = "https://github.com/purenix-org/purenix-base.git"; rev = "856f243d0aa214ee0a0f90e4be6045b6fee95bca"; allRefs = true; }
       "purescript-bifunctors";
     info =
       { 
@@ -134,7 +134,7 @@ const =
     
     
     src.path = fetchGitSubdir
-      { url = "https://github.com/purenix-org/purenix-base.git"; rev = "856f243d0aa214ee0a0f90e4be6045b6fee95bca"; }
+      { url = "https://github.com/purenix-org/purenix-base.git"; rev = "856f243d0aa214ee0a0f90e4be6045b6fee95bca"; allRefs = true; }
       "purescript-const";
     info =
       { 
@@ -148,7 +148,7 @@ contravariant =
     
     
     src.path = fetchGitSubdir
-      { url = "https://github.com/purenix-org/purenix-base.git"; rev = "856f243d0aa214ee0a0f90e4be6045b6fee95bca"; }
+      { url = "https://github.com/purenix-org/purenix-base.git"; rev = "856f243d0aa214ee0a0f90e4be6045b6fee95bca"; allRefs = true; }
       "purescript-contravariant";
     info =
       { 
@@ -162,7 +162,7 @@ control =
     
     
     src.path = fetchGitSubdir
-      { url = "https://github.com/purenix-org/purenix-base.git"; rev = "856f243d0aa214ee0a0f90e4be6045b6fee95bca"; }
+      { url = "https://github.com/purenix-org/purenix-base.git"; rev = "856f243d0aa214ee0a0f90e4be6045b6fee95bca"; allRefs = true; }
       "purescript-control";
     info =
       { 
@@ -204,7 +204,7 @@ distributive =
     
     
     src.path = fetchGitSubdir
-      { url = "https://github.com/purenix-org/purenix-base.git"; rev = "856f243d0aa214ee0a0f90e4be6045b6fee95bca"; }
+      { url = "https://github.com/purenix-org/purenix-base.git"; rev = "856f243d0aa214ee0a0f90e4be6045b6fee95bca"; allRefs = true; }
       "purescript-distributive";
     info =
       { 
@@ -218,7 +218,7 @@ effect =
     
     
     src.path = fetchGitSubdir
-      { url = "https://github.com/purenix-org/purenix-base.git"; rev = "856f243d0aa214ee0a0f90e4be6045b6fee95bca"; }
+      { url = "https://github.com/purenix-org/purenix-base.git"; rev = "856f243d0aa214ee0a0f90e4be6045b6fee95bca"; allRefs = true; }
       "purescript-effect";
     info =
       { 
@@ -232,7 +232,7 @@ either =
     
     
     src.path = fetchGitSubdir
-      { url = "https://github.com/purenix-org/purenix-base.git"; rev = "856f243d0aa214ee0a0f90e4be6045b6fee95bca"; }
+      { url = "https://github.com/purenix-org/purenix-base.git"; rev = "856f243d0aa214ee0a0f90e4be6045b6fee95bca"; allRefs = true; }
       "purescript-either";
     info =
       { 
@@ -246,7 +246,7 @@ enums =
     
     
     src.path = fetchGitSubdir
-      { url = "https://github.com/purenix-org/purenix-base.git"; rev = "856f243d0aa214ee0a0f90e4be6045b6fee95bca"; }
+      { url = "https://github.com/purenix-org/purenix-base.git"; rev = "856f243d0aa214ee0a0f90e4be6045b6fee95bca"; allRefs = true; }
       "purescript-enums";
     info =
       { 
@@ -274,7 +274,7 @@ exists =
     
     
     src.path = fetchGitSubdir
-      { url = "https://github.com/purenix-org/purenix-base.git"; rev = "856f243d0aa214ee0a0f90e4be6045b6fee95bca"; }
+      { url = "https://github.com/purenix-org/purenix-base.git"; rev = "856f243d0aa214ee0a0f90e4be6045b6fee95bca"; allRefs = true; }
       "purescript-exists";
     info =
       { 
@@ -302,7 +302,7 @@ foldable-traversable =
     
     
     src.path = fetchGitSubdir
-      { url = "https://github.com/purenix-org/purenix-base.git"; rev = "856f243d0aa214ee0a0f90e4be6045b6fee95bca"; }
+      { url = "https://github.com/purenix-org/purenix-base.git"; rev = "856f243d0aa214ee0a0f90e4be6045b6fee95bca"; allRefs = true; }
       "purescript-foldable-traversable";
     info =
       { 
@@ -316,7 +316,7 @@ foreign =
     
     
     src.path = fetchGitSubdir
-      { url = "https://github.com/purenix-org/purenix-base.git"; rev = "856f243d0aa214ee0a0f90e4be6045b6fee95bca"; }
+      { url = "https://github.com/purenix-org/purenix-base.git"; rev = "856f243d0aa214ee0a0f90e4be6045b6fee95bca"; allRefs = true; }
       "purescript-foreign";
     info =
       { 
@@ -372,7 +372,7 @@ functors =
     
     
     src.path = fetchGitSubdir
-      { url = "https://github.com/purenix-org/purenix-base.git"; rev = "856f243d0aa214ee0a0f90e4be6045b6fee95bca"; }
+      { url = "https://github.com/purenix-org/purenix-base.git"; rev = "856f243d0aa214ee0a0f90e4be6045b6fee95bca"; allRefs = true; }
       "purescript-functors";
     info =
       { 
@@ -386,7 +386,7 @@ identity =
     
     
     src.path = fetchGitSubdir
-      { url = "https://github.com/purenix-org/purenix-base.git"; rev = "856f243d0aa214ee0a0f90e4be6045b6fee95bca"; }
+      { url = "https://github.com/purenix-org/purenix-base.git"; rev = "856f243d0aa214ee0a0f90e4be6045b6fee95bca"; allRefs = true; }
       "purescript-identity";
     info =
       { 
@@ -442,7 +442,7 @@ invariant =
     
     
     src.path = fetchGitSubdir
-      { url = "https://github.com/purenix-org/purenix-base.git"; rev = "856f243d0aa214ee0a0f90e4be6045b6fee95bca"; }
+      { url = "https://github.com/purenix-org/purenix-base.git"; rev = "856f243d0aa214ee0a0f90e4be6045b6fee95bca"; allRefs = true; }
       "purescript-invariant";
     info =
       { 
@@ -568,7 +568,7 @@ maybe =
     
     
     src.path = fetchGitSubdir
-      { url = "https://github.com/purenix-org/purenix-base.git"; rev = "856f243d0aa214ee0a0f90e4be6045b6fee95bca"; }
+      { url = "https://github.com/purenix-org/purenix-base.git"; rev = "856f243d0aa214ee0a0f90e4be6045b6fee95bca"; allRefs = true; }
       "purescript-maybe";
     info =
       { 
@@ -610,7 +610,7 @@ newtype =
     
     
     src.path = fetchGitSubdir
-      { url = "https://github.com/purenix-org/purenix-base.git"; rev = "856f243d0aa214ee0a0f90e4be6045b6fee95bca"; }
+      { url = "https://github.com/purenix-org/purenix-base.git"; rev = "856f243d0aa214ee0a0f90e4be6045b6fee95bca"; allRefs = true; }
       "purescript-newtype";
     info =
       { 
@@ -666,7 +666,7 @@ nonempty =
     
     
     src.path = fetchGitSubdir
-      { url = "https://github.com/purenix-org/purenix-base.git"; rev = "856f243d0aa214ee0a0f90e4be6045b6fee95bca"; }
+      { url = "https://github.com/purenix-org/purenix-base.git"; rev = "856f243d0aa214ee0a0f90e4be6045b6fee95bca"; allRefs = true; }
       "purescript-nonempty";
     info =
       { 
@@ -708,7 +708,7 @@ orders =
     
     
     src.path = fetchGitSubdir
-      { url = "https://github.com/purenix-org/purenix-base.git"; rev = "856f243d0aa214ee0a0f90e4be6045b6fee95bca"; }
+      { url = "https://github.com/purenix-org/purenix-base.git"; rev = "856f243d0aa214ee0a0f90e4be6045b6fee95bca"; allRefs = true; }
       "purescript-orders";
     info =
       { 
@@ -722,7 +722,7 @@ partial =
     
     
     src.path = fetchGitSubdir
-      { url = "https://github.com/purenix-org/purenix-base.git"; rev = "856f243d0aa214ee0a0f90e4be6045b6fee95bca"; }
+      { url = "https://github.com/purenix-org/purenix-base.git"; rev = "856f243d0aa214ee0a0f90e4be6045b6fee95bca"; allRefs = true; }
       "purescript-partial";
     info =
       { 
@@ -778,7 +778,7 @@ prelude =
     
     
     src.path = fetchGitSubdir
-      { url = "https://github.com/purenix-org/purenix-base.git"; rev = "856f243d0aa214ee0a0f90e4be6045b6fee95bca"; }
+      { url = "https://github.com/purenix-org/purenix-base.git"; rev = "856f243d0aa214ee0a0f90e4be6045b6fee95bca"; allRefs = true; }
       "purescript-prelude";
     info =
       { 
@@ -792,7 +792,7 @@ profunctor =
     
     
     src.path = fetchGitSubdir
-      { url = "https://github.com/purenix-org/purenix-base.git"; rev = "856f243d0aa214ee0a0f90e4be6045b6fee95bca"; }
+      { url = "https://github.com/purenix-org/purenix-base.git"; rev = "856f243d0aa214ee0a0f90e4be6045b6fee95bca"; allRefs = true; }
       "purescript-profunctor";
     info =
       { 
@@ -904,7 +904,7 @@ safe-coerce =
     
     
     src.path = fetchGitSubdir
-      { url = "https://github.com/purenix-org/purenix-base.git"; rev = "856f243d0aa214ee0a0f90e4be6045b6fee95bca"; }
+      { url = "https://github.com/purenix-org/purenix-base.git"; rev = "856f243d0aa214ee0a0f90e4be6045b6fee95bca"; allRefs = true; }
       "purescript-safe-coerce";
     info =
       { 
@@ -918,7 +918,7 @@ st =
     
     
     src.path = fetchGitSubdir
-      { url = "https://github.com/purenix-org/purenix-base.git"; rev = "856f243d0aa214ee0a0f90e4be6045b6fee95bca"; }
+      { url = "https://github.com/purenix-org/purenix-base.git"; rev = "856f243d0aa214ee0a0f90e4be6045b6fee95bca"; allRefs = true; }
       "purescript-st";
     info =
       { 
@@ -960,7 +960,7 @@ tuples =
     
     
     src.path = fetchGitSubdir
-      { url = "https://github.com/purenix-org/purenix-base.git"; rev = "856f243d0aa214ee0a0f90e4be6045b6fee95bca"; }
+      { url = "https://github.com/purenix-org/purenix-base.git"; rev = "856f243d0aa214ee0a0f90e4be6045b6fee95bca"; allRefs = true; }
       "purescript-tuples";
     info =
       { 
@@ -974,7 +974,7 @@ type-equality =
     
     
     src.path = fetchGitSubdir
-      { url = "https://github.com/purenix-org/purenix-base.git"; rev = "856f243d0aa214ee0a0f90e4be6045b6fee95bca"; }
+      { url = "https://github.com/purenix-org/purenix-base.git"; rev = "856f243d0aa214ee0a0f90e4be6045b6fee95bca"; allRefs = true; }
       "purescript-type-equality";
     info =
       { 
@@ -1044,7 +1044,7 @@ unfoldable =
     
     
     src.path = fetchGitSubdir
-      { url = "https://github.com/purenix-org/purenix-base.git"; rev = "856f243d0aa214ee0a0f90e4be6045b6fee95bca"; }
+      { url = "https://github.com/purenix-org/purenix-base.git"; rev = "856f243d0aa214ee0a0f90e4be6045b6fee95bca"; allRefs = true; }
       "purescript-unfoldable";
     info =
       { 
@@ -1072,7 +1072,7 @@ unsafe-coerce =
     
     
     src.path = fetchGitSubdir
-      { url = "https://github.com/purenix-org/purenix-base.git"; rev = "856f243d0aa214ee0a0f90e4be6045b6fee95bca"; }
+      { url = "https://github.com/purenix-org/purenix-base.git"; rev = "856f243d0aa214ee0a0f90e4be6045b6fee95bca"; allRefs = true; }
       "purescript-unsafe-coerce";
     info =
       { 
