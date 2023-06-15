@@ -1,9 +1,9 @@
 name: regenerate
 on:
   workflow_dispatch: # allows manual triggering
-  push:
+  pull_request:
     branches:
-      - 'update_flake_lock_action'
+      - main
 jobs:
   regenerate:
     runs-on: ubuntu-latest
