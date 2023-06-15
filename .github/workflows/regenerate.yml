@@ -40,4 +40,4 @@ jobs:
         git commit -m "build(package-set): regenerate package-set"
     - name: Push changes
       if: env.changes == 'true'
-      run: git push
+      run: git push origin HEAD:${{ github.head_ref }}
