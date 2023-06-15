@@ -23,6 +23,8 @@ let
     (acc: { n, v }:
       let
         isOfficial = let is = b.isString v; in b.trace "${l.strings.optionalString is "Official "}${n}" is;
+        optOff = l.strings.optionalString isOfficial;
+        optUnoff = l.strings.optionalString (! isOfficial);
         package =
           if isOfficial
           then official-packages.${n}
@@ -46,33 +48,26 @@ let
           ${if isRef then null else "allRefs"} = true;
         };
         assertVersion = assert (b.trace "${n} ${v} == ${version}?" v) == version; b.trace "true";
-        srcGit = ''
-          { repo = "{url}";
-            rev = "{repo.rev}";
-          }
-        '';
+        #else "src.path = fetchGitSubdir git \"${v.subdir}\""
         cur = ''
           ${escape-reserved-word false n} =
-            let
-              git = { repo = "${url}";
-                      rev = "${repo.rev}";
-                    };
-            in
-              { src = { ${if isOfficial
-                          then "inherit git;"
-                          else "path = fetchGitSubdir git \"${v.subdir}\";"
-                         } };
-                info =
-                  { ${if isRef then "version = \"${version}\";" else ""}
-                    dependencies =
-                      [ ${b.foldl'
-                            (acc: d: acc + escape-reserved-word true d + " ")
-                            ""
-                            package.dependencies
-                        }
-                      ];
-                  };
-              };
+            { 
+              ${optOff "src.git.repo = \"${url}\";"}
+              ${optOff "src.git.rev = \"${repo.rev}\";"}
+              ${optUnoff "src.path = fetchGitSubdir"}
+                ${optUnoff "{ url = \"${url}\"; rev = \"${repo.rev}\"; }"}
+                ${optUnoff "\"${v.subdir}\";"}
+              info =
+                { ${if isRef then "version = \"${version}\";" else ""}
+                  dependencies =
+                    [ ${b.foldl'
+                          (acc: d: acc + escape-reserved-word true d + " ")
+                          ""
+                          package.dependencies
+                      }
+                    ];
+                };
+            };
         '';
         evaluate = c:
           if isOfficial
@@ -91,4 +86,5 @@ p.writeText "" ''
     with ps-pkgs;
     { ${package-set-str} }
 ''
+
 
