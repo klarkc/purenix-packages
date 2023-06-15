@@ -23,6 +23,8 @@ let
     (acc: { n, v }:
       let
         isOfficial = let is = b.isString v; in b.trace "${l.strings.optionalString is "Official "}${n}" is;
+        optOff = l.strings.optionalString isOfficial;
+        optUnoff = l.strings.optionalString (! isOfficial);
         package =
           if isOfficial
           then official-packages.${n}
@@ -39,19 +41,22 @@ let
         url =
           if isOfficial
           then official-packages.${n}.repo
-          else "${v.git}?path=${v.subdir}";
+          else v.git;
         repo = b.fetchGit {
           inherit url;
           ${if isRef then "ref" else "rev"} = ref;
           ${if isRef then null else "allRefs"} = true;
         };
         assertVersion = assert (b.trace "${n} ${v} == ${version}?" v) == version; b.trace "true";
+        #else "src.path = fetchGitSubdir git \"${v.subdir}\""
         cur = ''
           ${escape-reserved-word false n} =
-            { src.git =
-                { repo = "${url}";
-                  rev = "${repo.rev}";
-                };
+            { 
+              ${optOff "src.git.repo = \"${url}\";"}
+              ${optOff "src.git.rev = \"${repo.rev}\";"}
+              ${optUnoff "src.path = fetchGitSubdir"}
+                ${optUnoff "{ url = \"${url}\"; rev = \"${repo.rev}\"; }"}
+                ${optUnoff "\"${v.subdir}\";"}
               info =
                 { ${if isRef then "version = \"${version}\";" else ""}
                   dependencies =
@@ -75,7 +80,11 @@ let
 in
 p.writeText "" ''
   ps-pkgs:
+    let
+      fetchGitSubdir = opts: dir: (builtins.fetchGit opts) + "/" + dir;
+    in
     with ps-pkgs;
     { ${package-set-str} }
 ''
+
 

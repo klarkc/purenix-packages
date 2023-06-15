@@ -31,6 +31,15 @@
             pkgs;
         in
         {
-          packages.package-set = generator;
+          packages = {
+            inherit generator;
+          };
+
+          checks =
+            let
+              package-set = import self.packages.${system}.generator;
+              ps = inputs.purs-nix { inherit system; };
+            in
+            ps.build-set package-set;
         });
 }
