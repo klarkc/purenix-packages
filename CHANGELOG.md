@@ -1,5 +1,22 @@
 # Changelog
 
+## [2.0.0](https://github.com/klarkc/purenix-packages/compare/v1.0.0...v2.0.0) (2023-06-15)
+
+
+### ⚠ BREAKING CHANGES
+
+* package-set output renamed to generator
+
+### Bug Fixes
+
+* generated set not using subdir ([2873c5e](https://github.com/klarkc/purenix-packages/commit/2873c5e1267d204383cb53d9ed5364fe07abeae1))
+* package-set evaluation errors ([eca55dd](https://github.com/klarkc/purenix-packages/commit/eca55dd71178e7c8758b4faae37b14731589473c))
+
+
+### Tests
+
+* add package-set eval ([3ec4c03](https://github.com/klarkc/purenix-packages/commit/3ec4c039919154f6efc8cf4c3ad95c9a0c73b0a3))
+
 ## 1.0.0 (2023-06-08)
 
 
