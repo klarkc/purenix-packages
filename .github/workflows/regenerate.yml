@@ -1,14 +1,21 @@
 name: regenerate
 on:
-  workflow_dispatch: # allows manual triggering
-  pull_request:
+  push:
     branches:
       - main
+  workflow_dispatch: # allows manual triggering
+  pull_request:
 jobs:
   regenerate:
     runs-on: ubuntu-latest
+    permissions:
+      # Give the default GITHUB_TOKEN write permission to commit and push the
+      # added or changed files to the repository.
+      contents: write
     steps:
     - uses: actions/checkout@v3
+      with:
+        ref: ${{ github.head_ref }}
     - uses: cachix/install-nix-action@v21
       with:
         extra_nix_config: |
@@ -23,21 +30,6 @@ jobs:
         set -e
         nix build .#generator --show-trace --impure
         cp result nix/package-set/default.nix
-    - name: Check for changes
-      id: git-check
-      run: |
-        if [[ -z "$(git status --porcelain)" ]]; then
-          echo "changes=false" >> $GITHUB_ENV
-        else
-          echo "changes=true" >> $GITHUB_ENV
-        fi
-    - name: Commit changes
-      if: env.changes == 'true'
-      run: |
-        git config --local user.email "action@github.com"
-        git config --local user.name "GitHub Action"
-        git add nix/package-set/default.nix
-        git commit -m "build(package-set): regenerate package-set"
-    - name: Push changes
-      if: env.changes == 'true'
-      run: git push origin HEAD:${{ github.head_ref }}
+    - uses: stefanzweifel/git-auto-commit-action@v4
+      with:
+        commit_message: "build(package-set): regenerate package-set"
