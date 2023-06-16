@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.0.1](https://github.com/klarkc/purenix-packages/compare/v2.0.0...v2.0.1) (2023-06-15)
+
+
+### Bug Fixes
+
+* missing ref on fetchGit ([c9ef179](https://github.com/klarkc/purenix-packages/commit/c9ef179daf4e893fd45daf2941e27e4faf307d23))
+
 ## [2.0.0](https://github.com/klarkc/purenix-packages/compare/v1.0.0...v2.0.0) (2023-06-15)
 
 
