@@ -731,11 +731,11 @@
     "official-package-set-repo": {
       "flake": false,
       "locked": {
-        "lastModified": 1686986740,
-        "narHash": "sha256-DTzUkbE6z1qYKKEA2GmYP7mxB828vpXlkulQcvZasgY=",
+        "lastModified": 1687200139,
+        "narHash": "sha256-c0LdgoBy01hNxL6vilN2wFNr7XvOmZI/sY1XlEmG0qw=",
         "owner": "purescript",
         "repo": "package-sets",
-        "rev": "f3bb664728cc3cd0b7ff1c6405b7e352aee9af4f",
+        "rev": "4995f7aca65def211db2571fcfbfa901e3dccefb",
         "type": "github"
       },
       "original": {
