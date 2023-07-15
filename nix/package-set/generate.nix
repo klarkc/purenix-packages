@@ -1,6 +1,6 @@
 # this is basically purs-nix/purs-nix official generator
 # but accepting arguments and adapted to purenix registry
-inputs: version: pkgs:
+inputs: registry-version: pkgs:
 let
   inherit (inputs) package-set-repo;
   b = builtins;
@@ -8,7 +8,11 @@ let
   l = p.lib;
   u = (import ../utils.nix) inputs p;
   make-info-version = l.strings.removePrefix "v";
-  official-packages = (u.package-set u.purescript-registry version).packages;
+  package-set = (u.get-package-set {
+    package-set-config.registry = registry-version;
+    # TODO add extra-packages
+    extra-packages = { };
+  }).packages;
   escape-reserved-word = ps-pkgs: str:
     let
       reserved-words = [ "assert" ];
@@ -19,70 +23,47 @@ let
     else
       str;
   package-set-str = b.foldl'
-    (acc: { n, v }:
+    (acc: { n, v }@pkg:
       let
-        isOfficial = let is = b.isString v; in b.trace "${l.strings.optionalString is "Official "}${n}" is;
-        optOff = l.strings.optionalString isOfficial;
-        optUnoff = l.strings.optionalString (! isOfficial);
-        package =
-          if isOfficial
-          then official-packages.${n}
-          else (l.importJSON (repo + /${v.subdir}/purifix.json)).package;
-        version =
-          if isOfficial
-          then v
-          else make-info-version package.version;
-        isRef = isOfficial && l.strings.versionAtLeast version "0.0.1";
-        ref =
-          if isRef
-          then "refs/tags/v${version}"
-          else v.ref;
-        url =
-          if isOfficial
-          then official-packages.${n}.repo
-          else v.git;
+        inherit (v) ref version dependencies;
+        inherit (v.location) githubOwner githubRepo;
+        # FIXME we should not assume github
+        url = "https://github.com/${githubOwner}/${githubRepo}";
         repo = b.fetchGit {
           inherit url;
-          ${if isRef then "ref" else "rev"} = ref;
-          ${if isRef then null else "allRefs"} = true;
+          ref = "refs/tags/${ref}";
         };
-        assertVersion = assert (b.trace "${n} ${v} == ${version}?" v) == version; b.trace "true";
-        cur = ''
-          ${escape-reserved-word false n} =
-            { 
-              ${optOff "src.git.repo = \"${url}\";"}
-              ${optOff "src.git.rev = \"${repo.rev}\";"}
-              ${optUnoff "src.path = fetchGitSubdir"}
-                ${optUnoff "{ url = \"${url}\"; rev = \"${repo.rev}\"; allRefs = true; }"}
-                ${optUnoff "\"${v.subdir}\";"}
+        cur = b.trace "building ${n}@${ref}" ''
+          ${escape-reserved-word false n} = 
+            { src.git =
+                { repo = "${url}";
+                  rev = "${repo.rev}";
+                };
+
               info =
-                { ${if isRef then "version = \"${version}\";" else ""}
+                { version = "${version}";
                   dependencies =
                     [ ${b.foldl'
                           (acc: d: acc + escape-reserved-word true d + " ")
                           ""
-                          package.dependencies
+                          dependencies
                       }
                     ];
                 };
             };
         '';
-        evaluate = c:
-          if isOfficial
-          then assertVersion c
-          else c;
       in
-      acc + evaluate cur)
+      b.trace pkg.v.dependencies (acc + cur))
     ""
-    (u.package-set-entries package-set-repo);
+    #(l.mapAttrsToList u.n-v { inherit (package-set) yoga-json; });
+    (l.mapAttrsToList u.n-v package-set);
+  src = p.writeText "src" ''
+    ps-pkgs:
+      with ps-pkgs;
+      { ${package-set-str} }
+  '';
 in
-p.writeText "" ''
-  ps-pkgs:
-    let
-      fetchGitSubdir = opts: dir: (builtins.fetchGit opts) + "/" + dir;
-    in
-    with ps-pkgs;
-    { ${package-set-str} }
-''
-
-
+p.runCommand "src-parsed"
+{
+  buildInputs = [ p.nixfmt ];
+} ''nixfmt < ${src} > $out''

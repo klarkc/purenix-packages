@@ -31,4 +31,8 @@ rec {
     b.map ({ v, ... }: v) l1;
   purescript-registry = official-registry;
   purescript-registry-index = official-registry-index;
+  fromYAML = p.callPackage (purifix + ./nix/build-support/purifix/from-yaml.nix) { };
+  get-package-set = p.callPackage (purifix + /nix/build-support/purifix/get-package-set.nix) {
+    inherit fromYAML purescript-registry purescript-registry-index;
+  };
 }
