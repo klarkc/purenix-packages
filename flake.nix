@@ -39,13 +39,7 @@
             inputs
             version
             pkgs;
-        in
-        {
-          packages = {
-            inherit generator;
-          };
-
-          checks.output =
+          output =
             let
               package-set = import self.packages.${system}.generator;
               purs-nix = inputs.purs-nix
@@ -79,6 +73,15 @@
                   purenix
                 '';
               };
+        in
+        {
+          packages = {
+            inherit generator output;
+          };
+
+          checks = {
+            inherit output;
+          };
         }
       );
 }
