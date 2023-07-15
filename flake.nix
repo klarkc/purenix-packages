@@ -8,9 +8,14 @@
       purenix.url = "github:purenix-org/purenix";
       nixpkgs.follows = "purs-nix/nixpkgs";
       package-set-repo.url = "github:purenix-org/purenix-package-sets";
-      # FIXME use official-package-set from package-set-repo
-      official-package-set-repo.url = "github:purescript/package-sets";
-      official-package-set-repo.flake = false;
+      # TODO use registry from package-set-repo
+      official-registry.url = "github:purescript/registry";
+      official-registry.flake = false;
+      # TODO use registry-index from package-set-repo
+      official-registry-index.url = "github:purescript/registry-index";
+      official-registry-index.flake = false;
+      # We use some purifix tools to parse purescript manifest files
+      purifix.url = "github:purifix/purifix";
     };
 
   outputs = { self, nixpkgs, utils, ... }@inputs:
