@@ -53,10 +53,10 @@ let
             };
         '';
       in
-      b.trace pkg.v.dependencies (acc + cur))
+      acc + cur)
     ""
-    #(l.mapAttrsToList u.n-v { inherit (package-set) yoga-json; });
-    (l.mapAttrsToList u.n-v package-set);
+    (l.mapAttrsToList u.n-v { inherit (package-set) foreign; });
+  #(l.mapAttrsToList u.n-v package-set);
   src = p.writeText "src" ''
     ps-pkgs:
       with ps-pkgs;
