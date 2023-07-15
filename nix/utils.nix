@@ -7,15 +7,21 @@ let
 in
 rec {
   n-v = n: v: { inherit n v; };
-  # FIXME we should not assume package-set-repo@0.0.1
-  package-set = package-set-repo: l.importJSON
-    (package-set-repo + /package-sets/0.0.1.json);
-  package-set-entries = package-set-repo: l.mapAttrsToList
-    n-v
-    (package-set package-set-repo).packages;
+  package-set = package-set-repo: version: l.importJSON
+    (package-set-repo + /package-sets/${version}.json);
+  package-set-entries =
+    let
+      # FIXME we should not assume package-set-repo@0.0.1
+      version = "0.0.1";
+    in
+    package-set-repo: l.mapAttrsToList
+      n-v
+      (package-set package-set-repo version).packages;
   package-set-pkgs = package-set-repo: ps-pkgs: excluding:
     let
-      s1 = (package-set package-set-repo).packages;
+      # FIXME we should not assume package-set-repo@0.0.1
+      version = "0.0.1";
+      s1 = (package-set package-set-repo version).packages;
       s2 = ps-pkgs;
       s3 = b.intersectAttrs s1 s2;
       l1 = b.filter
@@ -23,4 +29,6 @@ rec {
         (l.mapAttrsToList n-v s3);
     in
     b.map ({ v, ... }: v) l1;
+  purescript-registry = official-registry;
+  purescript-registry-index = official-registry-index;
 }

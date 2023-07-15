@@ -33,8 +33,11 @@
       ({ system, pkgs, purenix, ... }@ctx:
         let
           u = (import ./nix/utils.nix) pkgs;
+          # TODO use version from package-set-repo
+          version = "18.0.0";
           generator = import ./nix/package-set/generate.nix
             inputs
+            version
             pkgs;
         in
         {

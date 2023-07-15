@@ -1,15 +1,14 @@
 # this is basically purs-nix/purs-nix official generator
 # but accepting arguments and adapted to purenix registry
-inputs: pkgs:
+inputs: version: pkgs:
 let
-  inherit (inputs) package-set-repo official-registry;
+  inherit (inputs) package-set-repo;
   b = builtins;
   p = pkgs;
   l = p.lib;
   u = (import ../utils.nix) inputs p;
   make-info-version = l.strings.removePrefix "v";
-  official-packages = l.importJSON (official-registry + /packages.json);
-  # FIXME we should not assume package-set-repo@0.0.1
+  official-packages = (u.package-set u.purescript-registry version).packages;
   escape-reserved-word = ps-pkgs: str:
     let
       reserved-words = [ "assert" ];
