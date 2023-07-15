@@ -34,8 +34,7 @@
         let
           u = (import ./nix/utils.nix) pkgs;
           generator = import ./nix/package-set/generate.nix
-            inputs.package-set-repo
-            inputs.official-package-set-repo
+            inputs
             pkgs;
         in
         {

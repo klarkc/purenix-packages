@@ -1,7 +1,9 @@
-pkgs:
+inputs: pkgs:
 let
+  inherit (inputs) purifix official-registry official-registry-index;
+  p = pkgs;
   b = builtins;
-  l = pkgs.lib;
+  l = p.lib;
 in
 rec {
   n-v = n: v: { inherit n v; };
