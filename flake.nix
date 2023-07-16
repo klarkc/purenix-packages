@@ -51,6 +51,7 @@
             runtimeInputs = with pkgs; [
               ised
               rsync
+              tree
               # TODO we should use purescript from the package-set
               ps-tools.purescript-0_15_4
             ];
@@ -60,8 +61,9 @@
               output="$result/output"
               if [ -d "$output" ]; then
                 echo "already build, syncing output"
-                rsync -rauL "$output" .
-                chmod -R u+w ./output
+                rm -r output || true
+                cp -L -r "$output" .
+                chmod -R u+w output
               else
                 echo "not built, proceeding"
                 purs "$@"
