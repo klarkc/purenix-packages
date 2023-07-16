@@ -33,9 +33,12 @@
             };
         in
         lib.mapAttrs make-info (psr-packages system pkgs);
-      __functor = _: { system }: overlay system;
+      __functor = self: { system }: overlay system;
+      overlays.compiler = final: prev: {
+        inherit (self.packages.${b.currentSystem}) purescript;
+      };
     in
-    { inherit __functor; } // utils.apply-systems
+    { inherit __functor overlays; } // utils.apply-systems
       {
         inherit inputs;
         # TODO remove systems limited by purs-nix
@@ -43,8 +46,28 @@
       }
       ({ system, pkgs, purenix, ps-tools, ... }@ctx:
         let
-          # TODO use version from package-set-repo
-          version = "18.0.0";
+          purescript = pkgs.writeShellApplication {
+            name = "purs";
+            runtimeInputs = with pkgs; [
+              ised
+              rsync
+              # TODO we should use purescript from the package-set
+              ps-tools.purescript-0_15_4
+            ];
+            text = ''
+              string="$4"
+              result=$(echo "$string" | sed 's/\/\*\*\/\*\.purs//')
+              output="$result/output"
+              if [ -d "$output" ]; then
+                echo "already build, syncing output"
+                rsync -rauL "$output" .
+                chmod -R u+w ./output
+              else
+                echo "not built, proceeding"
+                purs "$@"
+              fi
+            '';
+          };
           output =
             let
               purs-nix = inputs.purs-nix
@@ -56,28 +79,7 @@
                 };
               ps = purs-nix.purs
                 {
-                  purescript = pkgs.writeShellApplication {
-                    name = "purs";
-                    runtimeInputs = with pkgs; [
-                      ised
-                      rsync
-                      # TODO we should use purescript from the package-set
-                      ps-tools.purescript-0_15_4
-                    ];
-                    text = ''
-                      string="$4"
-                      result=$(echo "$string" | sed 's/\/\*\*\/\*\.purs//')
-                      output="$result/output"
-                      if [ -d "$output" ]; then
-                        echo "already build, syncing output"
-                        rsync -rauL "$output" .
-                        chmod -R u+w ./output
-                      else
-                        echo "not built, proceeding"
-                        purs "$@"
-                      fi
-                    '';
-                  };
+                  inherit purescript;
                   srcs = [ ];
                   dependencies = pkgs.lib.attrsets.attrVals
                     (b.attrNames (psr-packages system pkgs))
@@ -87,6 +89,10 @@
             ps.output { };
         in
         {
+          packages = {
+            inherit purescript;
+          };
+
           checks = {
             inherit output;
           };
