@@ -34,8 +34,8 @@
         in
         lib.mapAttrs make-info (psr-packages system pkgs);
       __functor = self: { system }: {
+        inherit (self.packages.${system}) purescript;
         overlay = overlay system;
-        packages = self.packages.${system};
       };
     in
     { inherit __functor; } // utils.apply-systems
@@ -55,8 +55,8 @@
               ps-tools.purescript-0_15_4
             ];
             text = ''
-              string="$4"
-              result=$(echo "$string" | sed 's/\/\*\*\/\*\.purs//')
+              last_argument="''${!#}"
+              result=$(echo "$last_argument" | sed 's/\/\*\*\/\*\.purs//')
               output="$result/output"
               if [ -d "$output" ]; then
                 echo "already build, syncing output"
