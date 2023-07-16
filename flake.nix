@@ -34,9 +34,6 @@
         in
         lib.mapAttrs make-info (psr-packages system pkgs);
       __functor = self: { system }: overlay system;
-      overlays.compiler = final: prev: {
-        inherit (self.packages.${b.currentSystem}) purescript;
-      };
     in
     { inherit __functor overlays; } // utils.apply-systems
       {
