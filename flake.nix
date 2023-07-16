@@ -5,24 +5,35 @@
     {
       utils.url = "github:ursi/flake-utils";
       purs-nix.url = "github:purs-nix/purs-nix";
+      ps-tools.follows = "purs-nix/ps-tools";
       purenix.url = "github:purenix-org/purenix";
       nixpkgs.follows = "purs-nix/nixpkgs";
       package-set-repo.url = "github:purenix-org/purenix-package-sets";
-      # TODO use registry from package-set-repo
-      official-registry.url = "github:purescript/registry";
-      official-registry.flake = false;
-      # TODO use registry-index from package-set-repo
-      official-registry-index.url = "github:purescript/registry-index";
-      official-registry-index.flake = false;
-      # We use some purifix tools to parse purescript manifest files
-      purifix.url = "github:purifix/purifix";
     };
 
   outputs = { self, nixpkgs, utils, ... }@inputs:
     let
       b = builtins;
-      __functor = _: { system }:
-        import ./nix/purs-nix inputs nixpkgs.legacyPackages.${system};
+      psr-packages = system: pkgs: pkgs.lib.attrsets.filterAttrs
+        (name: b.hasAttr "package")
+        inputs.package-set-repo.packages.${system};
+      # pursnix overlay
+      overlay = system: self: super:
+        let
+          pkgs = nixpkgs.legacyPackages.${system};
+          inherit (pkgs) lib;
+          make-info = name: p:
+            p // {
+              purs-nix-info = {
+                inherit name;
+                dependencies = b.attrValues (
+                  lib.mapAttrs make-info p.dependencies
+                );
+              };
+            };
+        in
+        lib.mapAttrs make-info (psr-packages system pkgs);
+      __functor = _: { system }: overlay system;
     in
     { inherit __functor; } // utils.apply-systems
       {
@@ -30,55 +41,52 @@
         # TODO remove systems limited by purs-nix
         systems = [ "x86_64-linux" ];
       }
-      ({ system, pkgs, purenix, ... }@ctx:
+      ({ system, pkgs, purenix, ps-tools, ... }@ctx:
         let
-          u = (import ./nix/utils.nix) pkgs;
           # TODO use version from package-set-repo
           version = "18.0.0";
-          generator = import ./nix/package-set/generate.nix
-            inputs
-            version
-            pkgs;
           output =
             let
-              package-set = import self.packages.${system}.generator;
               purs-nix = inputs.purs-nix
                 {
                   inherit system;
-                  defaults.compile.codegen = "corefn";
                   overlays = [
-                    (self: package-set)
+                    (overlay system)
                   ];
                 };
               ps = purs-nix.purs
                 {
+                  purescript = pkgs.writeShellApplication {
+                    name = "purs";
+                    runtimeInputs = with pkgs; [
+                      ised
+                      rsync
+                      # TODO we should use purescript from the package-set
+                      ps-tools.purescript-0_15_4
+                    ];
+                    text = ''
+                      string="$4"
+                      result=$(echo "$string" | sed 's/\/\*\*\/\*\.purs//')
+                      output="$result/output"
+                      if [ -d "$output" ]; then
+                        echo "already build, syncing output"
+                        rsync -rauL "$output" .
+                        chmod -R u+w ./output
+                      else
+                        echo "not built, proceeding"
+                        purs "$@"
+                      fi
+                    '';
+                  };
                   srcs = [ ];
-                  dependencies =
-                    (import ./nix/dependencies.nix) purs-nix.ps-pkgs;
+                  dependencies = pkgs.lib.attrsets.attrVals
+                    (b.attrNames (psr-packages system pkgs))
+                    purs-nix.ps-pkgs;
                 };
-              prefix = "output";
             in
-            pkgs.stdenv.mkDerivation
-              {
-                inherit prefix;
-                name = prefix;
-                src = ps.output { };
-                nativeBuildInputs = with pkgs; [ purenix ];
-                dontInstall = true;
-                postBuild = ''
-                  mkdir -p $out
-                  cp -L -r $src $out/${prefix}
-                  chmod -R u+w $out/${prefix}
-                  cd $out
-                  purenix
-                '';
-              };
+            ps.output { };
         in
         {
-          packages = {
-            inherit generator output;
-          };
-
           checks = {
             inherit output;
           };
