@@ -33,9 +33,12 @@
             };
         in
         lib.mapAttrs make-info (psr-packages system pkgs);
-      __functor = self: { system }: overlay system;
+      __functor = self: { system }: {
+        overlay = overlay system;
+        packages = self.packages.${system};
+      };
     in
-    { inherit __functor overlays; } // utils.apply-systems
+    { inherit __functor; } // utils.apply-systems
       {
         inherit inputs;
         # TODO remove systems limited by purs-nix
