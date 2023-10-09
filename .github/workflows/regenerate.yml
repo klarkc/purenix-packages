@@ -41,6 +41,6 @@ jobs:
         set -e
         nix build .#generator --show-trace --impure
         cp result nix/package-set/default.nix
-    - uses: stefanzweifel/git-auto-commit-action@v4
+    - uses: stefanzweifel/git-auto-commit-action@v5
       with:
         commit_message: "build(package-set): regenerate package-set"
